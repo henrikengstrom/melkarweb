@@ -170,6 +170,51 @@ em { font-style: italic; }
 }
 .btn-ghost:hover { border-color: var(--evergreen); color: var(--evergreen); }
 
+/* --- Place band (Steamboat) --------------------------------------------- */
+.place-band {
+  position: relative;
+  width: 100%;
+  height: clamp(240px, 36vw, 460px);
+  overflow: hidden;
+  background: var(--evergreen-deep); /* graceful fallback while image loads */
+  isolation: isolate;
+}
+
+/* The photograph, gently desaturated to sit within the palette */
+.place-band::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("assets/steamboat.jpg"); /* fallback for older parsers */
+  background-image: image-set(
+    url("assets/steamboat.webp") type("image/webp"),
+    url("assets/steamboat.jpg") type("image/jpeg")
+  );
+  background-size: cover;
+  background-position: center 62%;
+  filter: saturate(0.82) brightness(0.98);
+}
+
+/* Soft evergreen wash + ivory edge-fades so the band melts into the page */
+.place-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      var(--ivory) 0%,
+      rgba(247, 245, 240, 0) 9%,
+      rgba(247, 245, 240, 0) 88%,
+      var(--ivory) 100%
+    ),
+    linear-gradient(
+      0deg,
+      rgba(47, 93, 80, 0.16),
+      rgba(47, 93, 80, 0.16)
+    );
+}
+
 /* --- Cards (What we do) ------------------------------------------------- */
 .cards {
   display: grid;
@@ -194,6 +239,120 @@ em { font-style: italic; }
 }
 
 .card-body { margin: 0; color: var(--ink-soft); }
+
+/* --- Products ----------------------------------------------------------- */
+.section-intro {
+  max-width: 48ch;
+  font-size: 1.08rem;
+  color: var(--ink-soft);
+  margin: 1.1rem 0 0;
+}
+
+.products {
+  display: grid;
+  gap: clamp(1.25rem, 2.5vw, 1.75rem);
+}
+
+.product {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(1.25rem, 3vw, 2rem);
+  align-items: center;
+  background: var(--ivory);
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.product:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--evergreen)) 45%, var(--hairline));
+  box-shadow: 0 14px 40px -22px color-mix(in srgb, var(--accent, var(--ink)) 60%, transparent);
+  transform: translateY(-2px);
+}
+
+.product-mark {
+  flex: 0 0 auto;
+  width: 68px;
+  height: 68px;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 1.45rem;
+  letter-spacing: 0.01em;
+  color: var(--accent, var(--evergreen));
+  background: color-mix(in srgb, var(--accent, var(--evergreen)) 12%, var(--ivory));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--evergreen)) 32%, transparent);
+}
+
+/* When the mark holds a product icon rather than a monogram */
+.product-mark--image {
+  overflow: hidden;
+  background: none;
+}
+
+.product-icon {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-name {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.product-status {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent, var(--evergreen));
+  background: color-mix(in srgb, var(--accent, var(--evergreen)) 10%, var(--ivory));
+  border: 1px solid color-mix(in srgb, var(--accent, var(--evergreen)) 28%, transparent);
+  border-radius: 999px;
+  padding: 0.25rem 0.7rem;
+}
+
+.product-tagline {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.12rem;
+  color: var(--ink);
+  margin: 0 0 0.6rem;
+}
+
+.product-desc {
+  margin: 0 0 1.1rem;
+  color: var(--ink-soft);
+  max-width: 58ch;
+}
+
+.product-link {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--accent, var(--evergreen));
+  transition: opacity 0.2s ease;
+}
+.product-link:hover { opacity: 0.7; }
+
+@media (max-width: 560px) {
+  .product { grid-template-columns: 1fr; gap: 1.1rem; }
+}
 
 /* --- People ------------------------------------------------------------- */
 .people {
