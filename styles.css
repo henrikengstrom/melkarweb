@@ -85,6 +85,7 @@ em { font-style: italic; }
   font-size: 0.92rem;
   font-weight: 500;
   color: var(--ink-soft);
+  white-space: nowrap;
   transition: color 0.2s ease;
 }
 
@@ -468,7 +469,20 @@ em { font-style: italic; }
 
 /* --- Responsive niceties ------------------------------------------------ */
 @media (max-width: 560px) {
-  .nav-links { gap: 1rem; }
+  /* Two-row header: wordmark on top, links spread across their own row */
+  .nav {
+    height: auto;
+    flex-wrap: wrap;
+    padding-block: 0.7rem;
+    row-gap: 0.5rem;
+  }
+  .nav-links {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1.4rem;
+  }
+  .nav-links a { font-size: 0.88rem; }
   .person { flex-direction: column; gap: 1rem; }
 }
 
